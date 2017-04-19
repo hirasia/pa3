@@ -25,8 +25,8 @@ def run_exp(residue_file, time_file, n_exp=100, n_iter=25000, n=100):
 
             # run experiments
             for i in range(n_exp):
-                if i % 9 == 0 :
-                    print('exp {} / {}...'.format(i+1, n_exp))
+                if i % 10 == 0 :
+                    print('exp {} / {}...'.format(i, n_exp))
 
                 # generate new example of length `n`
                 nums = helpers.get_rand_example(n)
