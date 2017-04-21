@@ -41,22 +41,23 @@ def hc(nums, start, rep, n_iter):
 
 def T(i):
     """Cooling Schedule"""
-    return (10 ** 10) * (0.8 ** (i // 300))
+    return (10 ** 10) * (0.8 ** math.floor(i / 300))
 
 def sa(nums, start, rep, n_iter):
     """Simulated Annealing"""
     n = len(nums)
     soln, res = np.copy(start), rep.residue(start, nums)
-    best_soln, best_res = np.copy(soln), res
+    best_soln, best_res = np.copy(start), res
 
     for i in range(n_iter):
         candidate = rep.get_neighbor(soln)
         c_res = rep.residue(candidate, nums)
 
-        if c_res < res or np.random.random_sample() < math.exp(-(c_res - res) / T(i)):
+        r = np.random.random_sample()
+        if c_res < res or r < math.exp(-(c_res - res) / T(i)):
             soln, res = np.copy(candidate), c_res
 
         if res < best_res:
             best_soln, best_res = np.copy(soln), res
 
-    return res
+    return best_res
