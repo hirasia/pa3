@@ -11,16 +11,20 @@ n_iter: int, number of optimization iterations
 returns: int, residue
 """
 
+    
+
 def rr(nums, start, rep, n_iter):
     """Repeated Random"""
     n = len(nums)
     soln, res = np.copy(start), rep.residue(start, nums)
+    residues = [res]
 
     for i in range(n_iter):
         candidate = rep.get_rand(n)
         c_res = rep.residue(candidate, nums)
         if c_res < res:
             soln, res = np.copy(candidate), c_res
+            residues.append(res)
 
     return res
 
@@ -29,12 +33,14 @@ def hc(nums, start, rep, n_iter):
     """Hill Climbing"""
     n = len(nums)
     soln, res = np.copy(start), rep.residue(start, nums)
+    residues = [res]
 
     for i in range(n_iter):
         candidate = rep.get_neighbor(soln)
         c_res = rep.residue(candidate, nums)
         if c_res < res:
             soln, res = np.copy(candidate), c_res
+            residues.append(res)
 
     return res
 
@@ -48,6 +54,7 @@ def sa(nums, start, rep, n_iter):
     n = len(nums)
     soln, res = np.copy(start), rep.residue(start, nums)
     best_soln, best_res = np.copy(start), res
+    residues = [best_res]
 
     for i in range(n_iter):
         candidate = rep.get_neighbor(soln)
@@ -56,6 +63,7 @@ def sa(nums, start, rep, n_iter):
         r = np.random.random_sample()
         if c_res < res or r < math.exp(-(c_res - res) / T(i)):
             soln, res = np.copy(candidate), c_res
+            residues.append(res)
 
         if res < best_res:
             best_soln, best_res = np.copy(soln), res

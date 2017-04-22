@@ -1,6 +1,8 @@
 import numpy as np
 import sys
 import time
+import matplotlib.pyplot as plt
+import seaborn
 
 import Solution as S
 import Heuristics as HT
@@ -68,6 +70,25 @@ def run_exp(residue_file, time_file, n_exp=100, n_iter=25000, n=100):
             tstats = ['{:.6f}'.format(m) for m in np.mean(runtimes, axis=0)]
             print(' & '.join(tstats), file=tf)
 
+    # generate histograms
+    with plt.style.context('seaborn-whitegrid'):
+        # kk
+        plt.figure()
+        plt.hist(residues[:, 0], bins='auto', alpha=0.7, label=cols[0])
+        plt.title('{} Histogram'.format(cols[0]))
+        plt.savefig('{}.png'.format(cols[0]), bbox_inches='tight')
+
+        # heuristics
+        groups = [(1,2,3),(4,5,6)]
+        names = ['Std', 'PP']
+        for n, group in zip(names, groups):
+            plt.figure()
+            for g in group:
+                plt.hist(residues[:, g], bins=40, alpha=0.5, label=cols[g])
+            plt.title('{} Histogram'.format(n))
+            plt.legend()
+            plt.savefig('{}.png'.format(n), bbox_inches='tight')
+
     # print summary
     print('Mean residue, runtime for {} experiments:'.format(n_exp))
     for name, rmean, tmean in zip(cols, rstats, tstats):
@@ -76,4 +97,4 @@ def run_exp(residue_file, time_file, n_exp=100, n_iter=25000, n=100):
 
 if __name__ == '__main__':
     # get results for part 2
-    run_exp('residues_.txt', 'times_.txt')
+    run_exp('residues___.txt', 'times___.txt')
