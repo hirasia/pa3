@@ -76,4 +76,4 @@ def run_exp(residue_file, time_file, n_exp=100, n_iter=25000, n=100):
 
 if __name__ == '__main__':
     # get results for part 2
-    run_exp('residues.txt', 'times.txt')
+    run_exp('residues_.txt', 'times_.txt')
