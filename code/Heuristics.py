@@ -11,7 +11,7 @@ n_iter: int, number of optimization iterations
 returns: int, residue
 """
 
-    
+
 
 def rr(nums, start, rep, n_iter):
     """Repeated Random"""

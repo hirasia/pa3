@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import sys
 import numpy as np
 from bisect import insort_left
@@ -5,6 +7,7 @@ from bisect import insort_left
 import helpers
 
 def kk(nums):
+	"""karmarker-karp"""
 	N = list(nums)
 	N.sort()
 	while len(N) > 1:
